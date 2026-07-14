@@ -25,13 +25,13 @@ export function ResumeManagerPage() {
       {/* ── Top Bar ──────────────────────────────────────────────── */}
       <header className="sticky top-0 z-10 border-b bg-background/80 backdrop-blur-md">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-6">
-            <Link
-              to="/"
-              className="text-lg font-bold text-foreground transition-colors hover:text-foreground/80"
-            >
-              Placement Tracker
-            </Link>
+          <Link
+            to="/"
+            className="text-lg font-bold text-foreground transition-colors hover:text-foreground/80"
+          >
+            Placement Tracker
+          </Link>
+          <div className="flex items-center gap-4">
             <nav className="hidden items-center gap-1 sm:flex">
               <Button variant="ghost" size="sm" asChild>
                 <Link to="/">Dashboard</Link>
@@ -43,8 +43,6 @@ export function ResumeManagerPage() {
                 <Link to="/resume">Resume</Link>
               </Button>
             </nav>
-          </div>
-          <div className="flex items-center gap-4">
             <Button variant="ghost" size="sm" onClick={logout}>
               Sign out
             </Button>

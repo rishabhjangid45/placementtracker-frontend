@@ -73,18 +73,18 @@ export function DashboardPage() {
   console.log("Dashboard stats response data:", data);
 
   // Fallbacks for common variations of coding stats key names
-  const totalSolvedCount = 
-    data.totalSolved ?? 
-    (data as any).solvedCount ?? 
-    (data as any).solved ?? 
-    (data as any).totalQuestions ?? 
+  const totalSolvedCount =
+    data.totalSolved ??
+    (data as any).solvedCount ??
+    (data as any).solved ??
+    (data as any).totalQuestions ??
     0;
 
-  const streakCount = 
-    data.currentStreak ?? 
-    (data as any).streak ?? 
-    (data as any).streakCount ?? 
-    (data as any).codingStreak ?? 
+  const streakCount =
+    data.currentStreak ??
+    (data as any).streak ??
+    (data as any).streakCount ??
+    (data as any).codingStreak ??
     0;
 
   return (
@@ -92,11 +92,14 @@ export function DashboardPage() {
       {/* ── Top Bar ────────────────────────────────────────────────────── */}
       <header className="sticky top-0 z-10 border-b bg-background/80 backdrop-blur-md">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
-          <h1 className="text-lg font-bold text-foreground">
+          <Link
+            to="/"
+            className="text-lg font-bold text-foreground transition-colors hover:text-foreground/80"
+          >
             Placement Tracker
-          </h1>
+          </Link>
           <div className="flex items-center gap-4">
-            <nav className="flex items-center gap-1">
+            <nav className="hidden items-center gap-1 sm:flex">
               <Button variant="ghost" size="sm" className="text-foreground font-medium" asChild>
                 <Link to="/">Dashboard</Link>
               </Button>
