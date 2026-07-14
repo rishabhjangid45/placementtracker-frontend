@@ -1,4 +1,5 @@
 import axios from "axios";
+import { isTokenExpired } from "@/lib/auth-utils";
 
 /**
  * Centralized Axios instance for all API communication.
@@ -16,11 +17,16 @@ export const api = axios.create({
 });
 
 // ── Request Interceptor ─────────────────────────────────────────────────────
-// Attaches JWT token from localStorage to every outgoing request.
+// Attaches JWT token from localStorage to every outgoing request after verifying it hasn't expired.
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
     if (token) {
+      if (isTokenExpired(token)) {
+        localStorage.removeItem("token");
+        window.location.href = "/login";
+        return Promise.reject(new Error("JWT expired"));
+      }
       config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
@@ -29,14 +35,15 @@ api.interceptors.request.use(
 );
 
 // ── Response Interceptor ────────────────────────────────────────────────────
-// Handles 401 Unauthorized globally by clearing auth data and redirecting.
+// Handles 401 Unauthorized and 403 Forbidden globally by clearing auth data and redirecting.
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401) {
+    if (error.response?.status === 401 || error.response?.status === 403) {
       localStorage.removeItem("token");
       window.location.href = "/login";
     }
     return Promise.reject(error);
   }
 );
+

@@ -1,5 +1,7 @@
 import { api } from "@/lib/api";
 import type { LoginRequest, RegisterRequest, AuthResponse } from "@/types/auth";
+import { isTokenExpired } from "@/lib/auth-utils";
+
 
 /**
  * Auth service — handles login, registration, and token management.
@@ -48,9 +50,11 @@ export const authService = {
   },
 
   /**
-   * Check whether a valid token exists.
+   * Check whether a valid token exists and is not expired.
    */
   isAuthenticated(): boolean {
-    return !!localStorage.getItem("token");
+    const token = localStorage.getItem("token");
+    return !!token && !isTokenExpired(token);
   },
 };
+
