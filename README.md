@@ -1,89 +1,46 @@
-# Placement Tracker Frontend
+# 🎓 Placement Tracker
 
-A clean, modern, and dark-mode compatible React frontend application built for the Placement Tracker suite. Designed to help students monitor their interview pipelines, sync coding statistics, and manage resumes with ATS scoring.
-
----
-
-## 🚀 Tech Stack
-
-* **Framework**: React (TypeScript) + Vite
-* **Styling**: Tailwind CSS + ShadCN UI primitives
-* **Server State Management**: TanStack React Query (v5)
-* **API Client**: Axios (configured with automated JWT request/response interceptors)
-* **Visualization**: Recharts (for coding stats & job pipeline)
-* **Routing**: React Router DOM (v6) with client-side SPA redirects
+This is the frontend (user interface) for the **Placement Tracker** website. It is designed to help students keep track of their job applications, see their coding progress, upload resumes, and check how well their resume matches a job description (ATS score).
 
 ---
 
 ## ✨ Features
 
-1. **Authentication & Authorization**
-   * Secure Login & Registration with email/password validation.
-   * Auto-assigns the default `"STUDENT"` role on sign up.
-   * Centralized `AuthContext` with a JWT route guard (`ProtectedRoute`).
-   * Axios request interceptor automatically attaches the Bearer token to all requests.
+### 1. 📊 Dashboard
+* **Coding Stats**: Shows your solved coding questions and daily streak. Includes a sync button to refresh your stats.
+* **Job Progress Chart**: A simple bar chart showing your job statuses (like Applied, Interview, Rejected). You can click on a bar to view those specific jobs.
+* **Recent Resume**: Quickly shows your most recently uploaded resume.
 
-2. **Aggregator Dashboard**
-   * **LeetCode / Coding Stats**: Displays solved questions and streaks. Includes a **Sync Account** option with a built-in **15-minute cooldown timer** to throttle crawl requests.
-   * **Job Application Pipeline**: A custom Recharts bar chart showing status counts. Interactive filters allow you to click on any column to open the corresponding jobs.
-   * **Recent Resume**: Shows your most recently uploaded resume.
+### 2. 💼 Job Tracker
+* A clean table listing all your job applications (Company name, Role, Date, and Status).
+* Change a job's status (Applied, Online Assessment, Interview, Rejected, Selected) instantly using a simple dropdown.
+* Add new jobs quickly using a simple form.
 
-3. **Job Tracker**
-   * Displays all active applications in a clean table (Company, Role, Date, Status).
-   * Supports changing application status (`APPLIED`, `OA`, `INTERVIEW`, `REJECTED`, `SELECTED`) via a dropdown.
-   * Implements **Optimistic Updates** using React Query for snappy UI changes.
-   * Allows adding new job applications through an inline form.
+### 3. 📄 Resume & ATS Hub
+* Drag and drop your resumes (PDF or Word files) to upload them.
+* **ATS Score Checker**: Select a resume, paste a job description, and get a match score to see how well you fit the role.
+* **Resume History**: View a list of all your uploaded resumes and download them whenever you need.
 
-4. **Resume & ATS Management**
-   * Drag-and-drop file upload (supports PDF, DOC, DOCX up to 5MB).
-   * ATS Score Checker: Select an uploaded resume, paste a job description, and view a radial compatibility gauge.
-   * Resume History: List of previous uploads with dates, scores, and **JWT-authenticated file downloads**.
+### 4. 🎨 Design & Theme
+* **Modern Interface**: Uses clean, glass-like panels and transparent cards.
+* **Theme Toggle (Dark & Light Mode)**: Switch between dark and light modes. The transition grows in a smooth circle starting right from where you click the button.
+* **Dynamic Logo**: The tab icon (favicon) changes color automatically to look good on both dark and light browser tabs.
 
 ---
 
-## 🛠️ Getting Started
+## 🛠️ Technologies Used
 
-### Prerequisites
+Here is a simple explanation of the tools and technologies used to build this application:
 
-Ensure you have Node.js (v18+) and npm installed.
+* **React**: The main framework used to build the website's user interface. It allows us to build the page using reusable blocks (components) like buttons, tables, and cards.
+* **TypeScript**: A programming language that builds on top of JavaScript. It adds rules that prevent common coding mistakes, making the code safer and easier to maintain.
+* **Vite**: A modern tool that runs the project locally during development and packages the code efficiently when it is ready to be published.
+* **Tailwind CSS**: A stylesheet utility that allows us to design and customize the website's colors, spacing, and layout quickly without writing separate CSS files.
+* **ShadCN UI**: A collection of beautifully designed and accessible interface pieces (like cards, dropdowns, and text inputs) that we use as building blocks.
+* **React Query (TanStack Query)**: A tool that manages the data coming from the backend server. It handles loading states, automatically updates your dashboard when data changes, and temporarily saves data so the app feels fast.
+* **Axios**: A helper tool used to send network requests to the backend server (such as logging in, saving jobs, or uploading resumes).
+* **Recharts**: A library used to build the interactive charts and graphs shown on the dashboard.
+* **React Router**: A tool that allows you to click around and change pages (like moving from Dashboard to Jobs) instantly without reloading the entire website.
 
-### Setup Instructions
 
-1. **Clone the repository** and navigate to the project directory:
-   ```bash
-   cd frontend
-   ```
-
-2. **Install dependencies**:
-   ```bash
-   npm install
-   ```
-
-3. **Configure Environment Variables**:
-   Copy `.env.example` to `.env`:
-   ```bash
-   cp .env.example .env
-   ```
-   *In development, leave the backend URL commented out to let Vite's dev server proxy handle CORS. Set the production URL when deploying.*
-
-4. **Run the Development Server**:
-   ```bash
-   npm run dev
-   ```
-   Open [http://localhost:3000](http://localhost:3000) in your browser.
-
----
-
-## 🌐 Production Deployment
-
-### API Base URL Configuration
-
-The application is configured to switch routing modes automatically:
-* **Development**: Requests go through the local Vite dev server proxy (forwarded to `http://localhost:8080`).
-* **Production**: Requests point directly to your deployed Spring Boot URL via `VITE_API_BASE_URL` (which should be set on your host platform).
-
-### Static Hosting Routing (Vercel & Netlify)
-
-Because this app uses client-side routing, static hosts need to be instructed to fallback to `index.html` on page refreshes. The following configuration files have been provided:
-* **Netlify**: `public/_redirects`
-* **Vercel**: `vercel.json`
+Made By ~Rishabh~ :)
