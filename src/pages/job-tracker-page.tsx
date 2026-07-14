@@ -24,6 +24,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import type { ApplicationStatus } from "@/types/portfolio";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 // ── Status metadata ─────────────────────────────────────────────────────────
 const ALL_STATUSES: ApplicationStatus[] = [
@@ -162,6 +163,7 @@ export function JobTrackerPage() {
                 <Link to="/resume">Resume</Link>
               </Button>
             </nav>
+            <ThemeToggle />
             <Button variant="ghost" size="sm" onClick={logout}>
               Sign out
             </Button>

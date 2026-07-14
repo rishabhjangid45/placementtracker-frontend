@@ -26,6 +26,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import type { JobStats } from "@/types/portfolio";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 
 // ── Color constants for Recharts ──────────────────────────────────────────
@@ -125,6 +126,7 @@ export function DashboardPage() {
                 <Link to="/resume">Resume</Link>
               </Button>
             </nav>
+            <ThemeToggle />
             <Button variant="ghost" size="sm" onClick={logout}>
               Sign out
             </Button>

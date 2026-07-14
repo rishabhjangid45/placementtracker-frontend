@@ -16,6 +16,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import type { ResumeRecord } from "@/types/resume";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export function ResumeManagerPage() {
   const { logout } = useAuthContext();
@@ -58,6 +59,7 @@ export function ResumeManagerPage() {
                 <Link to="/resume">Resume</Link>
               </Button>
             </nav>
+            <ThemeToggle />
             <Button variant="ghost" size="sm" onClick={logout}>
               Sign out
             </Button>
