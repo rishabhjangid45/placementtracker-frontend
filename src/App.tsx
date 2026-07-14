@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button"
 
 function About() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen gap-6">
+    <div className="flex flex-col items-center justify-center min-h-screen gap-6 animate-page-enter">
       <h1 className="text-4xl font-bold tracking-tight">About</h1>
       <p className="text-muted-foreground text-lg">This is the about page.</p>
       <Button variant="secondary" asChild>
@@ -21,7 +21,7 @@ function About() {
 
 function Contact() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen gap-6">
+    <div className="flex flex-col items-center justify-center min-h-screen gap-6 animate-page-enter">
       <h1 className="text-4xl font-bold tracking-tight">Contact</h1>
       <p className="text-muted-foreground text-lg">This is the contact page.</p>
       <Button variant="secondary" asChild>

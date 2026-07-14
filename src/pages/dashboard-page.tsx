@@ -88,7 +88,7 @@ export function DashboardPage() {
     0;
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background animate-page-enter">
       {/* ── Top Bar ────────────────────────────────────────────────────── */}
       <header className="sticky top-0 z-10 border-b bg-background/80 backdrop-blur-md">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">

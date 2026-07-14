@@ -127,7 +127,7 @@ export function AuthPage() {
   const isLogin = mode === "login";
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-slate-50 px-4">
+    <main className="flex min-h-screen items-center justify-center bg-slate-50 px-4 animate-page-enter">
       <div className="w-full max-w-md">
         {/* ── Branding ─────────────────────────────────────────────── */}
         <div className="mb-8 text-center">

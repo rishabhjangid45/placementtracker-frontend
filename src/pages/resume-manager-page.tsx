@@ -21,16 +21,7 @@ export function ResumeManagerPage() {
   const { logout } = useAuthContext();
 
   return (
-    <div className="min-h-screen bg-background">
-      <style>{`
-        ::-webkit-scrollbar {
-          display: none !important;
-        }
-        html, body {
-          scrollbar-width: none !important;
-          -ms-overflow-style: none !important;
-        }
-      `}</style>
+    <div className="min-h-screen bg-background animate-page-enter">
       {/* ── Top Bar ──────────────────────────────────────────────── */}
       <header className="sticky top-0 z-10 border-b bg-background/80 backdrop-blur-md">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
