@@ -136,14 +136,29 @@ export function JobTrackerPage() {
             Placement Tracker
           </Link>
           <div className="flex items-center gap-4">
-            <nav className="hidden items-center gap-1 sm:flex">
-              <Button variant="ghost" size="sm" asChild>
+            <nav className="hidden items-center gap-2 sm:flex">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="bg-background/30 border border-border/30 shadow-sm backdrop-blur-sm text-muted-foreground hover:text-foreground hover:bg-background/50 hover:border-border/50 transition-all"
+                asChild
+              >
                 <Link to="/">Dashboard</Link>
               </Button>
-              <Button variant="ghost" size="sm" className="text-foreground font-medium" asChild>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="bg-background/80 border border-border/80 shadow-sm backdrop-blur-sm text-foreground font-medium hover:bg-background/95 transition-all"
+                asChild
+              >
                 <Link to="/jobs">Jobs</Link>
               </Button>
-              <Button variant="ghost" size="sm" asChild>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="bg-background/30 border border-border/30 shadow-sm backdrop-blur-sm text-muted-foreground hover:text-foreground hover:bg-background/50 hover:border-border/50 transition-all"
+                asChild
+              >
                 <Link to="/resume">Resume</Link>
               </Button>
             </nav>

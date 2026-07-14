@@ -22,6 +22,15 @@ export function ResumeManagerPage() {
 
   return (
     <div className="min-h-screen bg-background">
+      <style>{`
+        ::-webkit-scrollbar {
+          display: none !important;
+        }
+        html, body {
+          scrollbar-width: none !important;
+          -ms-overflow-style: none !important;
+        }
+      `}</style>
       {/* ── Top Bar ──────────────────────────────────────────────── */}
       <header className="sticky top-0 z-10 border-b bg-background/80 backdrop-blur-md">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
@@ -32,14 +41,29 @@ export function ResumeManagerPage() {
             Placement Tracker
           </Link>
           <div className="flex items-center gap-4">
-            <nav className="hidden items-center gap-1 sm:flex">
-              <Button variant="ghost" size="sm" asChild>
+            <nav className="hidden items-center gap-2 sm:flex">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="bg-background/30 border border-border/30 shadow-sm backdrop-blur-sm text-muted-foreground hover:text-foreground hover:bg-background/50 hover:border-border/50 transition-all"
+                asChild
+              >
                 <Link to="/">Dashboard</Link>
               </Button>
-              <Button variant="ghost" size="sm" asChild>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="bg-background/30 border border-border/30 shadow-sm backdrop-blur-sm text-muted-foreground hover:text-foreground hover:bg-background/50 hover:border-border/50 transition-all"
+                asChild
+              >
                 <Link to="/jobs">Jobs</Link>
               </Button>
-              <Button variant="ghost" size="sm" className="text-foreground font-medium" asChild>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="bg-background/80 border border-border/80 shadow-sm backdrop-blur-sm text-foreground font-medium hover:bg-background/95 transition-all"
+                asChild
+              >
                 <Link to="/resume">Resume</Link>
               </Button>
             </nav>
