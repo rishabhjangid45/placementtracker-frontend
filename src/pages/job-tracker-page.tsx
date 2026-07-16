@@ -194,7 +194,7 @@ export function JobTrackerPage() {
                       id="add-status"
                       value={status}
                       onChange={(e) => setStatus(e.target.value as ApplicationStatus)}
-                      className="w-full cursor-pointer appearance-none rounded-md border border-border bg-transparent py-2 pl-3 pr-8 text-sm focus:outline-none focus:ring-2 focus:ring-ring/50 focus:border-ring text-foreground"
+                      className="w-full cursor-pointer appearance-none rounded-md border border-border bg-transparent py-2 pl-3 pr-8 text-base md:text-sm focus:outline-none focus:ring-2 focus:ring-ring/50 focus:border-ring text-foreground"
                     >
                       {ALL_STATUSES.map((s) => (
                         <option key={s} value={s}>
@@ -297,7 +297,7 @@ function JobTable({ jobs, onStatusChange }: JobTableProps) {
                       }
                       aria-label={`Status for ${job.companyName} — ${job.role}`}
                       className={cn(
-                        "cursor-pointer appearance-none rounded-md border border-border bg-transparent py-1.5 pl-7 pr-8 text-sm font-medium transition-colors",
+                        "cursor-pointer appearance-none rounded-md border border-border bg-transparent py-1.5 pl-7 pr-8 text-base md:text-sm font-medium transition-colors",
                         "focus:outline-none focus:ring-2 focus:ring-ring/50 focus:border-ring",
                         "hover:bg-muted/60",
                         config.selectClass
@@ -381,7 +381,7 @@ function JobTable({ jobs, onStatusChange }: JobTableProps) {
                           }
                           aria-label={`Status for ${job.companyName} — ${job.role}`}
                           className={cn(
-                            "cursor-pointer appearance-none rounded-md border border-border bg-transparent py-1.5 pl-7 pr-8 text-sm font-medium transition-colors",
+                            "cursor-pointer appearance-none rounded-md border border-border bg-transparent py-1.5 pl-7 pr-8 text-base md:text-sm font-medium transition-colors",
                             "focus:outline-none focus:ring-2 focus:ring-ring/50 focus:border-ring",
                             "hover:bg-muted/60",
                             config.selectClass

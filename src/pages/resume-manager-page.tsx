@@ -259,7 +259,7 @@ function AtsScoreSection() {
                 }
                 disabled={resumesLoading || !resumes?.length}
                 className={cn(
-                  "w-full cursor-pointer appearance-none rounded-md border border-border bg-transparent py-2 pl-3 pr-8 text-sm transition-colors",
+                  "w-full cursor-pointer appearance-none rounded-md border border-border bg-transparent py-2 pl-3 pr-8 text-base md:text-sm transition-colors",
                   "focus:outline-none focus:ring-2 focus:ring-ring/50 focus:border-ring",
                   "disabled:cursor-not-allowed disabled:opacity-50",
                   selectedResumeId ? "text-foreground" : "text-muted-foreground"
