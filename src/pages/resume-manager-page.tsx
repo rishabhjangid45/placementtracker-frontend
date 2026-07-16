@@ -31,7 +31,7 @@ export function ResumeManagerPage() {
           </p>
         </div>
 
-        <div className="grid gap-8 lg:grid-cols-2">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
           <div className="flex flex-col gap-8">
             <UploadSection />
             <AtsScoreSection />
@@ -507,7 +507,7 @@ function ResumeListItem({ resume }: { resume: ResumeRecord }) {
       </div>
 
       <div className="min-w-0 flex-1">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 min-w-0">
           <p className="truncate text-sm font-medium text-foreground">
             {resume.fileName}
           </p>
