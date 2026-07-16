@@ -186,7 +186,7 @@ function CodingStatsCard({ totalSolved, currentStreak }: CodingStatsCardProps) {
 
   return (
     <Card className="border-border">
-      <CardHeader className="flex flex-row items-start justify-between space-y-0 gap-4">
+      <CardHeader className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:space-y-0 sm:gap-4">
         <div className="flex-1">
           <CardTitle className="text-lg font-semibold text-foreground">
             LeetCode / Coding Stats
