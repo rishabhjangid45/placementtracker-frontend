@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect, type FormEvent } from "react";
+import { useState, useCallback, type FormEvent } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuthContext } from "@/contexts/auth-context";
 import {
@@ -34,12 +34,6 @@ interface FieldErrors {
 export function AuthPage() {
   const navigate = useNavigate();
   const location = useLocation();
-
-  // Force light mode on mount
-  useEffect(() => {
-    document.documentElement.classList.remove("dark");
-    localStorage.setItem("theme", "light");
-  }, []);
   const { login, register, isLoading, error, clearError } = useAuthContext();
 
   const [mode, setMode] = useState<AuthMode>("login");
@@ -133,28 +127,28 @@ export function AuthPage() {
   const isLogin = mode === "login";
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-background px-4 animate-page-enter">
+    <main className="flex min-h-screen items-center justify-center bg-slate-50 px-4 animate-page-enter">
       <div className="w-full max-w-md">
         {/* ── Branding ─────────────────────────────────────────────── */}
         <div className="mb-8 text-center">
-          <h1 className="text-2xl font-bold text-foreground">
+          <h1 className="text-2xl font-bold text-slate-900">
             Placement Tracker
           </h1>
-          <p className="mt-1 text-sm text-muted-foreground">
+          <p className="mt-1 text-sm text-slate-600">
             Track your interview progress and land your dream role.
           </p>
         </div>
 
         {/* ── Tab Switcher ─────────────────────────────────────────── */}
-        <div className="mb-4 flex rounded-lg bg-muted p-1">
+        <div className="mb-4 flex rounded-lg bg-slate-200 p-1">
           <button
             type="button"
             onClick={() => switchMode("login")}
             className={cn(
-              "flex-1 rounded-md py-2 text-sm font-medium transition-all cursor-pointer",
+              "flex-1 rounded-md py-2 text-sm font-medium transition-all",
               isLogin
-                ? "bg-background text-foreground shadow-sm"
-                : "text-muted-foreground hover:text-foreground"
+                ? "bg-white text-slate-900 shadow-sm"
+                : "text-slate-600 hover:text-slate-900"
             )}
           >
             Sign In
@@ -163,10 +157,10 @@ export function AuthPage() {
             type="button"
             onClick={() => switchMode("register")}
             className={cn(
-              "flex-1 rounded-md py-2 text-sm font-medium transition-all cursor-pointer",
+              "flex-1 rounded-md py-2 text-sm font-medium transition-all",
               !isLogin
-                ? "bg-background text-foreground shadow-sm"
-                : "text-muted-foreground hover:text-foreground"
+                ? "bg-white text-slate-900 shadow-sm"
+                : "text-slate-600 hover:text-slate-900"
             )}
           >
             Create Account
@@ -174,19 +168,19 @@ export function AuthPage() {
         </div>
 
         {/* ── Card ─────────────────────────────────────────────────── */}
-        <Card key={mode} className="bg-transparent border-none shadow-none p-0 animate-page-enter">
-          <CardHeader className="px-0 pt-0 pb-4">
-            <CardTitle className="text-lg font-semibold text-foreground">
+        <Card className="border-slate-200">
+          <CardHeader>
+            <CardTitle className="text-lg font-semibold text-slate-900">
               {isLogin ? "Welcome back" : "Create your account"}
             </CardTitle>
-            <CardDescription className="text-sm text-muted-foreground">
+            <CardDescription className="text-sm text-slate-600">
               {isLogin
                 ? "Enter your credentials to access your dashboard."
                 : "Fill in the details below to get started."}
             </CardDescription>
           </CardHeader>
 
-          <CardContent className="px-0 pb-0">
+          <CardContent>
             {/* ── Server Error Banner ──────────────────────────────── */}
             {error && (
               <div
@@ -201,7 +195,7 @@ export function AuthPage() {
               {/* Name (register only) */}
               {!isLogin && (
                 <div className="flex flex-col gap-1.5">
-                  <Label htmlFor="auth-name" className="text-sm font-medium text-foreground">
+                  <Label htmlFor="auth-name" className="text-sm font-medium text-slate-900">
                     Full Name
                   </Label>
                   <Input
@@ -222,7 +216,7 @@ export function AuthPage() {
 
               {/* Email */}
               <div className="flex flex-col gap-1.5">
-                <Label htmlFor="auth-email" className="text-sm font-medium text-foreground">
+                <Label htmlFor="auth-email" className="text-sm font-medium text-slate-900">
                   Email
                 </Label>
                 <Input
@@ -242,7 +236,7 @@ export function AuthPage() {
 
               {/* Password */}
               <div className="flex flex-col gap-1.5">
-                <Label htmlFor="auth-password" className="text-sm font-medium text-foreground">
+                <Label htmlFor="auth-password" className="text-sm font-medium text-slate-900">
                   Password
                 </Label>
                 <Input
@@ -265,7 +259,7 @@ export function AuthPage() {
                 <div className="flex flex-col gap-1.5">
                   <Label
                     htmlFor="auth-confirm-password"
-                    className="text-sm font-medium text-foreground"
+                    className="text-sm font-medium text-slate-900"
                   >
                     Confirm Password
                   </Label>
@@ -294,7 +288,7 @@ export function AuthPage() {
                 type="submit"
                 size="sm"
                 disabled={isLoading}
-                className="mt-2 w-full md:w-auto md:self-end cursor-pointer"
+                className="mt-2 w-full md:w-auto md:self-end"
               >
                 {isLoading
                   ? isLogin
@@ -309,7 +303,7 @@ export function AuthPage() {
         </Card>
 
         {/* ── Footer ───────────────────────────────────────────────── */}
-        <p className="mt-6 text-center text-xs text-muted-foreground">
+        <p className="mt-6 text-center text-xs text-slate-400">
           By continuing you agree to our Terms of Service.
         </p>
       </div>
