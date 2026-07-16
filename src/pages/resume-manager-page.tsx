@@ -1,9 +1,7 @@
 import { useState, useCallback, useRef, type FormEvent, type DragEvent } from "react";
-import { Link } from "react-router-dom";
 import { RadialBarChart, RadialBar, ResponsiveContainer } from "recharts";
 import { useMyResumes, useUploadResume, useAtsScore } from "@/hooks/use-resume";
 import { resumeService } from "@/services/resume.service";
-import { useAuthContext } from "@/contexts/auth-context";
 import {
   Card,
   CardContent,
@@ -16,56 +14,13 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import type { ResumeRecord } from "@/types/resume";
-import { ThemeToggle } from "@/components/theme-toggle";
+import { Navbar } from "@/components/navbar";
 
 export function ResumeManagerPage() {
-  const { logout } = useAuthContext();
 
   return (
     <div className="min-h-screen bg-background animate-page-enter">
-      {/* ── Top Bar ──────────────────────────────────────────────── */}
-      <header className="sticky top-0 z-10 border-b bg-background/80 backdrop-blur-md">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
-          <Link
-            to="/"
-            className="text-lg font-bold text-foreground transition-colors hover:text-foreground/80"
-          >
-            Placement Tracker
-          </Link>
-          <div className="flex items-center gap-4">
-            <nav className="hidden items-center gap-2 sm:flex">
-              <Button
-                variant="ghost"
-                size="sm"
-                className="bg-background/30 border border-border/30 shadow-sm backdrop-blur-sm text-muted-foreground hover:text-foreground hover:bg-background/50 hover:border-border/50 transition-all"
-                asChild
-              >
-                <Link to="/">Dashboard</Link>
-              </Button>
-              <Button
-                variant="ghost"
-                size="sm"
-                className="bg-background/30 border border-border/30 shadow-sm backdrop-blur-sm text-muted-foreground hover:text-foreground hover:bg-background/50 hover:border-border/50 transition-all"
-                asChild
-              >
-                <Link to="/jobs">Jobs</Link>
-              </Button>
-              <Button
-                variant="ghost"
-                size="sm"
-                className="bg-background/80 border border-border/80 shadow-sm backdrop-blur-sm text-foreground font-medium hover:bg-background/95 transition-all"
-                asChild
-              >
-                <Link to="/resume">Resume</Link>
-              </Button>
-            </nav>
-            <ThemeToggle />
-            <Button variant="ghost" size="sm" onClick={logout}>
-              Sign out
-            </Button>
-          </div>
-        </div>
-      </header>
+      <Navbar />
 
       {/* ── Content ──────────────────────────────────────────────── */}
       <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
