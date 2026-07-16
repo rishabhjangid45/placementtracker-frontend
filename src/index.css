@@ -49,6 +49,7 @@
 }
 
 :root {
+  color-scheme: light;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
@@ -84,6 +85,7 @@
 }
 
 .dark {
+  color-scheme: dark;
   --background: #1e1e1e;
   --foreground: #d4d4d4;
   --card: #252526;
@@ -128,6 +130,11 @@
 
   html {
     @apply font-sans;
+  }
+
+  select option {
+    background-color: var(--card);
+    color: var(--foreground);
   }
 }
 

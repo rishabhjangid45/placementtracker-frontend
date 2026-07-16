@@ -1,7 +1,6 @@
 import { useState, useCallback, useMemo, type FormEvent } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { useMyJobs, useUpdateJobStatus } from "@/hooks/use-jobs";
-import { useAuthContext } from "@/contexts/auth-context";
 import { jobService } from "@/services/job.service";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import {
@@ -24,7 +23,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import type { ApplicationStatus } from "@/types/portfolio";
-import { ThemeToggle } from "@/components/theme-toggle";
+import { Navbar } from "@/components/navbar";
 
 // ── Status metadata ─────────────────────────────────────────────────────────
 const ALL_STATUSES: ApplicationStatus[] = [
@@ -69,7 +68,6 @@ const STATUS_CONFIG: Record<
 // ── Page ────────────────────────────────────────────────────────────────────
 export function JobTrackerPage() {
   const { data: jobs, isLoading, error } = useMyJobs();
-  const { logout } = useAuthContext();
   const updateStatus = useUpdateJobStatus();
   const queryClient = useQueryClient();
 
@@ -128,48 +126,7 @@ export function JobTrackerPage() {
   return (
     <div className="min-h-screen bg-background animate-page-enter">
       {/* ── Top Bar ────────────────────────────────────────────────── */}
-      <header className="sticky top-0 z-10 border-b bg-background/80 backdrop-blur-md">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
-          <Link
-            to="/"
-            className="text-lg font-bold text-foreground transition-colors hover:text-foreground/80"
-          >
-            Placement Tracker
-          </Link>
-          <div className="flex items-center gap-4">
-            <nav className="hidden items-center gap-2 sm:flex">
-              <Button
-                variant="ghost"
-                size="sm"
-                className="bg-background/30 border border-border/30 shadow-sm backdrop-blur-sm text-muted-foreground hover:text-foreground hover:bg-background/50 hover:border-border/50 transition-all"
-                asChild
-              >
-                <Link to="/">Dashboard</Link>
-              </Button>
-              <Button
-                variant="ghost"
-                size="sm"
-                className="bg-background/80 border border-border/80 shadow-sm backdrop-blur-sm text-foreground font-medium hover:bg-background/95 transition-all"
-                asChild
-              >
-                <Link to="/jobs">Jobs</Link>
-              </Button>
-              <Button
-                variant="ghost"
-                size="sm"
-                className="bg-background/30 border border-border/30 shadow-sm backdrop-blur-sm text-muted-foreground hover:text-foreground hover:bg-background/50 hover:border-border/50 transition-all"
-                asChild
-              >
-                <Link to="/resume">Resume</Link>
-              </Button>
-            </nav>
-            <ThemeToggle />
-            <Button variant="ghost" size="sm" onClick={logout}>
-              Sign out
-            </Button>
-          </div>
-        </div>
-      </header>
+      <Navbar />
 
       {/* ── Content ────────────────────────────────────────────────── */}
       <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
@@ -311,87 +268,154 @@ interface JobTableProps {
 
 function JobTable({ jobs, onStatusChange }: JobTableProps) {
   return (
-    <Card className="border-border">
-      <CardContent className="p-0">
-        <Table>
-          <TableHeader>
-            <TableRow className="hover:bg-transparent">
-              <TableHead>Company</TableHead>
-              <TableHead>Role</TableHead>
-              <TableHead>Date Applied</TableHead>
-              <TableHead>Status</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {jobs.map((job) => {
-              const config = STATUS_CONFIG[job.status] || STATUS_CONFIG.APPLIED;
-              return (
-                <TableRow key={job.id}>
-                  {/* Company */}
-                  <TableCell className="font-medium text-foreground">
-                    {job.companyName}
-                  </TableCell>
+    <>
+      {/* Mobile Card List View */}
+      <div className="flex flex-col gap-4 sm:hidden">
+        {jobs.map((job) => {
+          const config = STATUS_CONFIG[job.status] || STATUS_CONFIG.APPLIED;
+          return (
+            <Card key={job.id} className="border-border">
+              <CardContent className="p-4 flex flex-col gap-3">
+                <div className="flex items-start justify-between">
+                  <div>
+                    <h3 className="font-semibold text-foreground text-base">
+                      {job.companyName}
+                    </h3>
+                    <p className="text-sm text-muted-foreground">{job.role}</p>
+                  </div>
+                  <div className="relative inline-flex items-center">
+                    <span
+                      className={cn(
+                        "pointer-events-none absolute left-2.5 h-2 w-2 rounded-full",
+                        config.dotClass
+                      )}
+                    />
+                    <select
+                      value={job.status}
+                      onChange={(e) =>
+                        onStatusChange(job.id, e.target.value as ApplicationStatus)
+                      }
+                      aria-label={`Status for ${job.companyName} — ${job.role}`}
+                      className={cn(
+                        "cursor-pointer appearance-none rounded-md border border-border bg-transparent py-1.5 pl-7 pr-8 text-sm font-medium transition-colors",
+                        "focus:outline-none focus:ring-2 focus:ring-ring/50 focus:border-ring",
+                        "hover:bg-muted/60",
+                        config.selectClass
+                      )}
+                    >
+                      {ALL_STATUSES.map((s) => (
+                        <option key={s} value={s}>
+                          {STATUS_CONFIG[s].label}
+                        </option>
+                      ))}
+                    </select>
+                    {/* Chevron icon */}
+                    <svg
+                      className="pointer-events-none absolute right-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="m6 9 6 6 6-6" />
+                    </svg>
+                  </div>
+                </div>
+                <div className="flex justify-between items-center text-xs text-muted-foreground border-t border-border/50 pt-2 flex-wrap gap-2">
+                  <span>Applied: {formatDate(job.applicationDate)}</span>
+                </div>
+              </CardContent>
+            </Card>
+          );
+        })}
+      </div>
 
-                  {/* Role */}
-                  <TableCell className="text-muted-foreground">
-                    {job.role}
-                  </TableCell>
+      {/* Desktop Table View */}
+      <Card className="border-border hidden sm:block">
+        <CardContent className="p-0">
+          <Table>
+            <TableHeader>
+              <TableRow className="hover:bg-transparent">
+                <TableHead>Company</TableHead>
+                <TableHead>Role</TableHead>
+                <TableHead>Date Applied</TableHead>
+                <TableHead>Status</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {jobs.map((job) => {
+                const config = STATUS_CONFIG[job.status] || STATUS_CONFIG.APPLIED;
+                return (
+                  <TableRow key={job.id}>
+                    {/* Company */}
+                    <TableCell className="font-medium text-foreground">
+                      {job.companyName}
+                    </TableCell>
 
-                  {/* Date */}
-                  <TableCell className="text-muted-foreground">
-                    {formatDate(job.applicationDate)}
-                  </TableCell>
+                    {/* Role */}
+                    <TableCell className="text-muted-foreground">
+                      {job.role}
+                    </TableCell>
 
-                  {/* Status dropdown */}
-                  <TableCell>
-                    <div className="relative inline-flex items-center">
-                      <span
-                        className={cn(
-                          "pointer-events-none absolute left-2.5 h-2 w-2 rounded-full",
-                          config.dotClass
-                        )}
-                      />
-                      <select
-                        value={job.status}
-                        onChange={(e) =>
-                          onStatusChange(job.id, e.target.value as ApplicationStatus)
-                        }
-                        aria-label={`Status for ${job.companyName} — ${job.role}`}
-                        className={cn(
-                          "cursor-pointer appearance-none rounded-md border border-border bg-transparent py-1.5 pl-7 pr-8 text-sm font-medium transition-colors",
-                          "focus:outline-none focus:ring-2 focus:ring-ring/50 focus:border-ring",
-                          "hover:bg-muted/60",
-                          config.selectClass
-                        )}
-                      >
-                        {ALL_STATUSES.map((s) => (
-                          <option key={s} value={s}>
-                            {STATUS_CONFIG[s].label}
-                          </option>
-                        ))}
-                      </select>
-                      {/* Chevron icon */}
-                      <svg
-                        className="pointer-events-none absolute right-2 h-3.5 w-3.5 text-muted-foreground"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth={2}
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <path d="m6 9 6 6 6-6" />
-                      </svg>
-                    </div>
-                  </TableCell>
-                </TableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
-      </CardContent>
-    </Card>
+                    {/* Date */}
+                    <TableCell className="text-muted-foreground">
+                      {formatDate(job.applicationDate)}
+                    </TableCell>
+
+                    {/* Status dropdown */}
+                    <TableCell>
+                      <div className="relative inline-flex items-center">
+                        <span
+                          className={cn(
+                            "pointer-events-none absolute left-2.5 h-2 w-2 rounded-full",
+                            config.dotClass
+                          )}
+                        />
+                        <select
+                          value={job.status}
+                          onChange={(e) =>
+                            onStatusChange(job.id, e.target.value as ApplicationStatus)
+                          }
+                          aria-label={`Status for ${job.companyName} — ${job.role}`}
+                          className={cn(
+                            "cursor-pointer appearance-none rounded-md border border-border bg-transparent py-1.5 pl-7 pr-8 text-sm font-medium transition-colors",
+                            "focus:outline-none focus:ring-2 focus:ring-ring/50 focus:border-ring",
+                            "hover:bg-muted/60",
+                            config.selectClass
+                          )}
+                        >
+                          {ALL_STATUSES.map((s) => (
+                            <option key={s} value={s}>
+                              {STATUS_CONFIG[s].label}
+                            </option>
+                          ))}
+                        </select>
+                        {/* Chevron icon */}
+                        <svg
+                          className="pointer-events-none absolute right-2 h-3.5 w-3.5 text-muted-foreground"
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth={2}
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="m6 9 6 6 6-6" />
+                        </svg>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
+            </TableBody>
+          </Table>
+        </CardContent>
+      </Card>
+    </>
   );
 }
 
