@@ -31,7 +31,7 @@ export function ResumeManagerPage() {
           </p>
         </div>
 
-        <div className="grid gap-8 lg:grid-cols-2">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
           <div className="flex flex-col gap-8">
             <UploadSection />
             <AtsScoreSection />
@@ -259,7 +259,7 @@ function AtsScoreSection() {
                 }
                 disabled={resumesLoading || !resumes?.length}
                 className={cn(
-                  "w-full cursor-pointer appearance-none rounded-md border border-border bg-transparent py-2 pl-3 pr-8 text-sm transition-colors",
+                  "w-full cursor-pointer appearance-none rounded-md border border-border bg-transparent py-2 pl-3 pr-8 text-base md:text-sm transition-colors",
                   "focus:outline-none focus:ring-2 focus:ring-ring/50 focus:border-ring",
                   "disabled:cursor-not-allowed disabled:opacity-50",
                   selectedResumeId ? "text-foreground" : "text-muted-foreground"
@@ -507,7 +507,7 @@ function ResumeListItem({ resume }: { resume: ResumeRecord }) {
       </div>
 
       <div className="min-w-0 flex-1">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 min-w-0">
           <p className="truncate text-sm font-medium text-foreground">
             {resume.fileName}
           </p>
